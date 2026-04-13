@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "Habit Counter",
-    "slug": "habit-counter",
+    "slug": "your-habit-counter",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -43,8 +43,9 @@
         "origin": false
       },
       "eas": {
-        "projectId": "your-project-id"
+        "projectId": "7009e292-c97e-4f31-9731-d66328241d53"
       }
-    }
+    },
+    "owner": "deden-bangkit"
   }
 }
