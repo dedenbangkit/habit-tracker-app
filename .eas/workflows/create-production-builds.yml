@@ -9,12 +9,13 @@ jobs:
   build-android:
     name: Build Android
     type: build
-    platform: android
-    profile: production
+    params:
+      platform: android
+      profile: production
 
   submit-android:
     name: Submit to Google Play
     type: submit
-    platform: android
     needs: [build-android]
-    profile: production
+    params:
+      build_id: ${{ jobs.build-android.outputs.build_id }}
