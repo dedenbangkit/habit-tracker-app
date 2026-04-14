@@ -22,7 +22,8 @@
 	"submit": {
 		"production": {
 			"android": {
-				"serviceAccountKeyPath": "./api-0000000000000000000-111111-aaaaaabbbbbb.json"
+				"serviceAccountKeyPath": "./api-0000000000000000000-111111-aaaaaabbbbbb.json",
+				"releaseStatus": "draft"
 			}
 		}
 	}
