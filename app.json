@@ -22,7 +22,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#6366F1"
       },
-      "package": "com.habitcounter.app",
+      "package": "com.dedenbangkit.habitcounter",
       "versionCode": 1
     },
     "web": {
