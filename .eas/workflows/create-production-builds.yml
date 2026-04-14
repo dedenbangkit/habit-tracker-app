@@ -18,4 +18,4 @@ jobs:
     type: submit
     needs: [build-android]
     params:
-      build_id: ${{ jobs.build-android.outputs.build_id }}
+      build_id: ${{ needs.build-android.outputs.build_id }}
