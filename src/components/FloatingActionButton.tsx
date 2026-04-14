@@ -1,5 +1,6 @@
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet, ViewStyle } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSettings } from '../context';
 import { BorderRadius, Spacing } from '../constants';
 
@@ -10,12 +11,16 @@ interface FloatingActionButtonProps {
 
 export function FloatingActionButton({ onPress, style }: FloatingActionButtonProps) {
   const { colors } = useSettings();
+  const insets = useSafeAreaInsets();
 
   return (
     <TouchableOpacity
       style={[
         styles.button,
-        { backgroundColor: colors.primary },
+        {
+          backgroundColor: colors.primary,
+          bottom: Spacing.xl + insets.bottom,
+        },
         style,
       ]}
       onPress={onPress}
@@ -29,7 +34,6 @@ export function FloatingActionButton({ onPress, style }: FloatingActionButtonPro
 const styles = StyleSheet.create({
   button: {
     position: 'absolute',
-    bottom: Spacing.xl,
     right: Spacing.xl,
     width: 56,
     height: 56,

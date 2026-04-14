@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, ScrollView, StyleSheet, Alert } from 'react-native';
 import { useRouter, Stack } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useSettings, useHabits } from '../context';
 import { SettingsRow } from '../components';
 import { Spacing, FontSize, APP_VERSION } from '../constants';
@@ -13,6 +13,7 @@ export default function SettingsScreen() {
   const router = useRouter();
   const { colors, isDarkMode, toggleDarkMode, resetAllData } = useSettings();
   const { refreshHabits } = useHabits();
+  const insets = useSafeAreaInsets();
 
   const handleResetData = () => {
     Alert.alert(
@@ -40,10 +41,10 @@ export default function SettingsScreen() {
           title: 'Settings',
         }}
       />
-      <SafeAreaView style={styles.container} edges={['bottom']}>
+      <View style={styles.container}>
         <ScrollView
           style={styles.scrollView}
-          contentContainerStyle={styles.content}
+          contentContainerStyle={[styles.content, { paddingBottom: Spacing.xl + insets.bottom }]}
           showsVerticalScrollIndicator={false}
         >
           {/* Appearance Section */}
@@ -90,7 +91,7 @@ export default function SettingsScreen() {
             </Text>
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </View>
     </>
   );
 }

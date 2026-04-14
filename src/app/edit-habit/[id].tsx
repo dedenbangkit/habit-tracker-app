@@ -7,7 +7,7 @@ import {
   Platform,
 } from 'react-native';
 import { useRouter, useLocalSearchParams, Stack } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useHabits, useSettings } from '../../context';
 import { Button, Input, EmojiPicker, EmptyState } from '../../components';
 import { Spacing } from '../../constants';
@@ -22,6 +22,7 @@ export default function EditHabitScreen() {
   const { colors } = useSettings();
 
   const habit = getHabitById(id);
+  const insets = useSafeAreaInsets();
 
   const [name, setName] = useState(habit?.name || '');
   const [emoji, setEmoji] = useState(habit?.emoji || '🎯');
@@ -98,7 +99,7 @@ export default function EditHabitScreen() {
           title: 'Edit Habit',
         }}
       />
-      <SafeAreaView style={styles.container} edges={['bottom']}>
+      <View style={styles.container}>
         <KeyboardAvoidingView
           style={styles.keyboardView}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -131,7 +132,7 @@ export default function EditHabitScreen() {
             />
           </ScrollView>
 
-          <View style={[styles.footer, { backgroundColor: colors.background }]}>
+          <View style={[styles.footer, { backgroundColor: colors.background, paddingBottom: Spacing.xl + insets.bottom }]}>
             <Button
               title="Save Changes"
               onPress={handleSubmit}
@@ -140,7 +141,7 @@ export default function EditHabitScreen() {
             />
           </View>
         </KeyboardAvoidingView>
-      </SafeAreaView>
+      </View>
     </>
   );
 }
@@ -160,6 +161,5 @@ const styles = StyleSheet.create({
   },
   footer: {
     padding: Spacing.lg,
-    paddingBottom: Spacing.xl,
   },
 });

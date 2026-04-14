@@ -7,7 +7,7 @@ import {
   Platform,
 } from 'react-native';
 import { useRouter, Stack } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useHabits, useSettings } from '../context';
 import { Button, Input, EmojiPicker } from '../components';
 import { Spacing } from '../constants';
@@ -19,6 +19,7 @@ export default function AddHabitScreen() {
   const router = useRouter();
   const { addHabit } = useHabits();
   const { colors } = useSettings();
+  const insets = useSafeAreaInsets();
 
   const [name, setName] = useState('');
   const [emoji, setEmoji] = useState('🎯');
@@ -71,7 +72,7 @@ export default function AddHabitScreen() {
           title: 'New Habit',
         }}
       />
-      <SafeAreaView style={styles.container} edges={['bottom']}>
+      <View style={styles.container}>
         <KeyboardAvoidingView
           style={styles.keyboardView}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -105,7 +106,7 @@ export default function AddHabitScreen() {
             />
           </ScrollView>
 
-          <View style={[styles.footer, { backgroundColor: colors.background }]}>
+          <View style={[styles.footer, { backgroundColor: colors.background, paddingBottom: Spacing.xl + insets.bottom }]}>
             <Button
               title="Create Habit"
               onPress={handleSubmit}
@@ -114,7 +115,7 @@ export default function AddHabitScreen() {
             />
           </View>
         </KeyboardAvoidingView>
-      </SafeAreaView>
+      </View>
     </>
   );
 }
@@ -134,6 +135,5 @@ const styles = StyleSheet.create({
   },
   footer: {
     padding: Spacing.lg,
-    paddingBottom: Spacing.xl,
   },
 });

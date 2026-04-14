@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useRouter, useLocalSearchParams, useFocusEffect, Stack } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useHabits, useSettings } from '../../context';
 import { Button, WeeklyHistory, EmptyState } from '../../components';
 import { getLast7DaysHistory, isHabitCompletedToday } from '../../utils';
@@ -48,6 +48,7 @@ export default function HabitDetailScreen() {
   const { id } = useLocalSearchParams<{ id: string }>();
   const { getHabitById, incrementHabit, decrementHabit, deleteHabit, refreshHabits } = useHabits();
   const { colors } = useSettings();
+  const insets = useSafeAreaInsets();
 
   const [habit, setHabit] = useState<Habit | undefined>(() => getHabitById(id));
 
@@ -124,10 +125,10 @@ export default function HabitDetailScreen() {
           ),
         }}
       />
-      <SafeAreaView style={styles.container} edges={['bottom']}>
+      <View style={styles.container}>
         <ScrollView
           style={styles.scrollView}
-          contentContainerStyle={styles.content}
+          contentContainerStyle={[styles.content, { paddingBottom: Spacing.xxxl + insets.bottom }]}
           showsVerticalScrollIndicator={false}
         >
           {/* Header with emoji and progress */}
@@ -202,7 +203,7 @@ export default function HabitDetailScreen() {
             />
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </View>
     </>
   );
 }

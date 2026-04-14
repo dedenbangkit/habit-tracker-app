@@ -8,7 +8,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import { useRouter, useFocusEffect, Stack } from 'expo-router';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { useHabits, useSettings } from '../context';
 import { HabitCard, EmptyState, FloatingActionButton } from '../components';
 import { Spacing, FontSize } from '../constants';
@@ -20,6 +20,7 @@ export default function HomeScreen() {
   const router = useRouter();
   const { habits, isLoading, incrementHabit, decrementHabit, refreshHabits } = useHabits();
   const { colors } = useSettings();
+  const insets = useSafeAreaInsets();
   const [refreshing, setRefreshing] = React.useState(false);
 
   // Refresh habits when screen comes into focus (handles date change)
@@ -62,7 +63,7 @@ export default function HomeScreen() {
           ),
         }}
       />
-      <SafeAreaView style={styles.container} edges={['bottom']}>
+      <View style={styles.container}>
         {habits.length === 0 && !isLoading ? (
           <EmptyState
             emoji="✨"
@@ -72,7 +73,7 @@ export default function HomeScreen() {
         ) : (
           <ScrollView
             style={styles.scrollView}
-            contentContainerStyle={styles.content}
+            contentContainerStyle={[styles.content, { paddingBottom: 80 + insets.bottom }]}
             refreshControl={
               <RefreshControl
                 refreshing={refreshing}
@@ -92,12 +93,10 @@ export default function HomeScreen() {
                 onDecrement={() => decrementHabit(habit.id)}
               />
             ))}
-            {/* Bottom padding for FAB */}
-            <View style={styles.bottomPadding} />
           </ScrollView>
         )}
         <FloatingActionButton onPress={handleAddHabit} />
-      </SafeAreaView>
+      </View>
     </>
   );
 }
@@ -111,9 +110,6 @@ const styles = StyleSheet.create({
   },
   content: {
     padding: Spacing.lg,
-  },
-  bottomPadding: {
-    height: 80,
   },
   settingsButton: {
     padding: Spacing.sm,
