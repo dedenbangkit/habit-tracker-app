@@ -16,5 +16,5 @@ jobs:
     name: Submit to Google Play
     type: submit
     platform: android
-    needs: build-android
+    needs: [build-android]
     profile: production
